@@ -1,4 +1,4 @@
-const { knex } = require("../connection");
+const { createRef } = require("../../utils/utils");
 const { topics, users, articles, comments } = require("../data/index");
 exports.seed = (knex, Promise) => {
   console.log(topics);
@@ -22,12 +22,7 @@ exports.seed = (knex, Promise) => {
     })
     .then(values => {
       const [userData, topicsData] = values;
-      const mappedArticles = articles.map(article => {
-        const date = new Date(article.created_at);
-        const { created_at, ...rest } = article;
-
-        return { ["created_at"]: date, ...rest };
-      });
+      const mappedArticles = formatDate(articles);
       return Promise.all([
         knex
           .insert(mappedArticles)
@@ -39,6 +34,5 @@ exports.seed = (knex, Promise) => {
     })
     .then(values => {
       const [articlesData, userData, topicsData] = values;
-      console.log(userData, topicsData, articlesData);
     });
 };

@@ -1,5 +1,10 @@
 const { expect } = require("chai");
-const { createRef, renameKeys, formatAlbums } = require("../utils/utils");
+const {
+  createRef,
+  renameKeys,
+  formatAlbums,
+  formatDate
+} = require("../utils/utils");
 
 describe("createRef", () => {
   it("returns an empty object, when passed an empty array", () => {
@@ -143,5 +148,11 @@ describe.only("formatAlbums", () => {
     ];
     expect(actual).to.eql(expected);
     expect(actual).to.not.equal(albums);
+  });
+});
+describe("formatDate()", () => {
+  it("should format the date from a timestamp to a DateTime", () => {
+    const objArray = [{ created_at: 1471522072389 }];
+    expect(formatDate(objArray)).to.eql();
   });
 });

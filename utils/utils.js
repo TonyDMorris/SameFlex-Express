@@ -26,4 +26,13 @@ const formatAlbums = (albums, artistLookUp) => {
   });
 };
 
-module.exports = { createRef, renameKeys, formatAlbums };
+const formatDate = array => {
+  array.map(article => {
+    const date = new Date(article.created_at);
+    const { created_at, ...rest } = article;
+
+    return { ["created_at"]: date, ...rest };
+  });
+};
+
+module.exports = { createRef, renameKeys, formatAlbums, formatDate };
