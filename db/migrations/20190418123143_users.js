@@ -1,6 +1,11 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable("users", usersTable => {
-    topicsTable.string("username").primary();
+    usersTable
+      .string("username")
+      .unique()
+      .primary();
+    usersTable.string("avatar_url");
+    usersTable.string("name");
   });
 };
 
