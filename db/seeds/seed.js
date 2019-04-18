@@ -11,7 +11,16 @@ exports.seed = (knex, Promise) => {
         .into("topics")
         .returning("*");
     })
-    .then(data => {
-      console.log(data);
+    .then(topicsData => {
+      return Promise.all([
+        knex
+          .insert(users)
+          .into("users")
+          .returning("*"),
+        topicsData
+      ]);
+    })
+    .then(values => {
+      const [userData, topicsData] = values;
     });
 };
