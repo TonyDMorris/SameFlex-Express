@@ -1,4 +1,4 @@
-// const {  } = require('../data');
+const { knex } = require("../connection");
 
 exports.seed = (knex, Promise) => {
   return knex.migrate
