@@ -49,6 +49,6 @@ exports.seed = (knex, Promise) => {
         .returning("*");
     })
     .then(comments => {
-      console.log(comments);
+      console.log("finished seeding");
     });
 };
