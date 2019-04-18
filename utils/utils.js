@@ -4,11 +4,12 @@ const createRef = (people, option1 = "name", option2 = "phoneNumber") => {
     return acc;
   }, {});
 };
-const renameKeys = (input, keyToChange, newKey) => {
-  return input.map(book => {
-    book[newKey] = book[keyToChange];
-    delete book[keyToChange];
-    return book;
+const renameKeys = (data, keyToChange, newKey, refObj) => {
+  return data.map(obj => {
+    newObj = { ...obj };
+    newObj[newKey] = refObj[newObj[keyToChange]];
+    delete newObj[keyToChange];
+    return newObj;
   });
 };
 
@@ -27,8 +28,9 @@ const formatAlbums = (albums, artistLookUp) => {
 };
 
 const formatDate = array => {
-  array.map(article => {
-    const date = new Date(article.created_at);
+  return array.map(article => {
+    const dateNow = new Date();
+    const date = new Date(article.created_at ? article.created_at : dateNow);
     const { created_at, ...rest } = article;
 
     return { ["created_at"]: date, ...rest };

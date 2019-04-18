@@ -126,7 +126,7 @@ describe("renameKeys", () => {
   });
 });
 
-describe.only("formatAlbums", () => {
+describe("formatAlbums", () => {
   it("returns a new empty array, when passed an empty array", () => {
     const albums = [];
     const artistLookup = {};
@@ -153,6 +153,17 @@ describe.only("formatAlbums", () => {
 describe("formatDate()", () => {
   it("should format the date from a timestamp to a DateTime", () => {
     const objArray = [{ created_at: 1471522072389 }];
-    expect(formatDate(objArray)).to.eql();
+    const formattedArray = formatDate(objArray);
+    expect(formattedArray[0].created_at).to.eql(new Date(1471522072389));
+  });
+  it("should not mutate the original ", () => {
+    const objArray = [{ created_at: 1471522072389 }];
+    const formattedArray = formatDate(objArray);
+    expect(objArray).to.eql([{ created_at: 1471522072389 }]);
+  });
+  it("should give a created_at key to objects that dont have it  ", () => {
+    const objArray = [{}];
+    const formattedArray = formatDate(objArray);
+    expect(formattedArray[0]).to.have.key("created_at");
   });
 });
