@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { createRef, renameKeys, formatAlbums } = require("../utils");
+const { createRef, renameKeys, formatAlbums } = require("../utils/utils");
 
 describe("createRef", () => {
   it("returns an empty object, when passed an empty array", () => {
