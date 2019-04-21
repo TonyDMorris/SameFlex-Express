@@ -4,7 +4,12 @@ const createRef = (people, option1 = "name", option2 = "phoneNumber") => {
     return acc;
   }, {});
 };
-const renameKeys = (data, keyToChange, newKey, refObj) => {
+const renameKeys = (
+  data,
+  keyToChange,
+  newKey,
+  refObj = createRef(data, keyToChange, keyToChange)
+) => {
   return data.map(obj => {
     newObj = { ...obj };
     newObj[newKey] = refObj[newObj[keyToChange]];

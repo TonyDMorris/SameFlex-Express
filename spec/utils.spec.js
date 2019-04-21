@@ -92,6 +92,7 @@ describe("renameKeys", () => {
     const albums = [
       { title: "Slaughterhouse-Five", writtenBy: "Kurt Vonnegut" }
     ];
+
     const keyToChange = "writtenBy";
     const newKey = "author";
     const actual = renameKeys(albums, keyToChange, newKey);
@@ -119,6 +120,34 @@ describe("renameKeys", () => {
         title: "Blood Meridian",
         genre: "anti-western",
         author: "change my key"
+      }
+    ];
+    expect(actual).to.eql(expected);
+    expect(actual).to.not.equal(albums);
+  });
+  it("can be used with an optional reference object to modify keys", () => {
+    const albums = [
+      { title: "Slaughterhouse-Five", writtenBy: "Kurt Vonnegut" },
+      {
+        title: "Blood Meridian",
+        genre: "anti-western",
+        writtenBy: "Cormac McCarthy"
+      }
+    ];
+    const titleIdArray = [
+      { title: "Blood Meridian", id: 1 },
+      { title: "Slaughterhouse-Five", id: 2 }
+    ];
+    const ref = createRef(titleIdArray, "title", "id");
+    const keyToChange = "title";
+    const newKey = "titleId";
+    const actual = renameKeys(albums, keyToChange, newKey, ref);
+    const expected = [
+      { titleId: 2, writtenBy: "Kurt Vonnegut" },
+      {
+        titleId: 1,
+        genre: "anti-western",
+        writtenBy: "Cormac McCarthy"
       }
     ];
     expect(actual).to.eql(expected);
@@ -159,7 +188,7 @@ describe("formatDate()", () => {
   it("should not mutate the original ", () => {
     const objArray = [{ created_at: 1471522072389 }];
     const formattedArray = formatDate(objArray);
-    expect(objArray).to.eql([{ created_at: 1471522072389 }]);
+    expect(formattedArray[0]).to.not.equal(objArray[0]);
   });
   it("should give a created_at key to objects that dont have it  ", () => {
     const objArray = [{}];
