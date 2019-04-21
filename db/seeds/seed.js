@@ -11,17 +11,13 @@ exports.seed = (knex, Promise) => {
         .into("topics")
         .returning("*");
     })
-    .then(topicsData => {
-      return Promise.all([
-        knex
-          .insert(users)
-          .into("users")
-          .returning("*"),
-        topicsData
-      ]);
+    .then(() => {
+      return knex
+        .insert(users)
+        .into("users")
+        .returning("*");
     })
-    .then(values => {
-      const [userData] = values;
+    .then(userData => {
       const mappedArticles = formatDate(articles);
       return Promise.all([
         knex
@@ -48,7 +44,7 @@ exports.seed = (knex, Promise) => {
         .into("comments")
         .returning("*");
     })
-    .then(comments => {
+    .then(() => {
       console.log("finished seeding");
     });
 };
