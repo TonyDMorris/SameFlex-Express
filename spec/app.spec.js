@@ -8,7 +8,7 @@ const knex = require("../db/connection");
 
 const request = require("supertest");
 
-describe.only("/", () => {
+describe("/", () => {
   beforeEach(() => knex.seed.run());
   after(() => knex.destroy());
 
