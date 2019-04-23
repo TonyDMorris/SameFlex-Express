@@ -10,8 +10,9 @@ describe.only("/topics", () => {
     return request(app)
       .get("/api/topics")
       .expect(200)
-      .then(topics => {
-        expect(topics).to.be.an.array;
+      .then(data => {
+        const { topics } = data.body;
+        expect(topics).to.be.an("array");
         expect(topics[0]).to.have.keys("slug", "description");
       });
   });
