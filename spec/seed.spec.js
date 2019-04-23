@@ -1,10 +1,11 @@
+process.env.NODE_ENV = "test";
 const knex = require("../db/connection");
 const { expect } = require("chai");
 
-describe("should seed all tables correctly  ", () => {
-  after(() => {
-    knex.destroy();
-  });
+describe("should seed all tables correctly ", () => {
+  beforeEach(() => knex.seed.run());
+  after(() => knex.destroy());
+
   describe("should seed the topics table correctly", () => {
     it("should should seed the tables columns with the correct column names", () => {
       return knex("topics")
