@@ -1,7 +1,7 @@
 const knex = require("../db/connection");
 const { expect } = require("chai");
 
-describe.only("should seed all tables correctly  ", () => {
+describe("should seed all tables correctly  ", () => {
   after(() => {
     knex.destroy();
   });
