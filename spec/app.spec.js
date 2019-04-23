@@ -212,6 +212,16 @@ describe("/", () => {
           expect(article.votes).to.eql(5);
         });
     });
+    it("PATCH when passed an object copntaining inc_votes can be used to decrease votes", () => {
+      return request(app)
+        .patch("/api/articles/4")
+        .send({ inc_votes: -5 })
+        .expect(201)
+        .then(({ body }) => {
+          const article = body.updatedArticle[0];
+          expect(article.votes).to.eql(-5);
+        });
+    });
     it("will check for invalid vote increments ", () => {
       return request(app)
         .patch("/api/articles/4")
@@ -223,7 +233,7 @@ describe("/", () => {
           );
         });
     });
-    it("will check for malformed or missing param", () => {
+    it("will check for malformed a param", () => {
       return request(app)
         .patch("/api/articles/d")
         .send({ inc_votes: 5 })
