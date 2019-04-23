@@ -112,7 +112,7 @@ describe.only("/", () => {
         .expect(200)
         .then(({ body }) => {
           const { articles } = body.articles;
-          console.log(articles);
+
           expect(articles).to.be.descendingBy("votes");
         });
     });
@@ -122,18 +122,39 @@ describe.only("/", () => {
         .expect(200)
         .then(({ body }) => {
           const { articles } = body.articles;
-          console.log(articles);
+
           expect(articles).to.be.ascendingBy("votes");
         });
     });
-    it("accept additional filter paramaters", () => {
+    it("accept a author query", () => {
       return request(app)
-        .get("/api/articles?author=mitch")
+        .get("/api/articles?author=icellusedkars")
         .expect(200)
         .then(({ body }) => {
           const { articles } = body.articles;
-          console.log(articles);
-          expect(articles[0].author).to.eql("mitch");
+
+          expect(articles[0].author).to.eql("icellusedkars");
+        });
+    });
+    it("accepts a topic query", () => {
+      return request(app)
+        .get("/api/articles?topic=mitch")
+        .expect(200)
+        .then(({ body }) => {
+          const { articles } = body.articles;
+
+          expect(articles[0].topic).to.eql("mitch");
+        });
+    });
+    it("both quries can be used together", () => {
+      return request(app)
+        .get("/api/articles?topic=mitch&author=rogersop")
+        .expect(200)
+        .then(({ body }) => {
+          const { articles } = body.articles;
+
+          expect(articles[0].author).to.eql("rogersop");
+          expect(articles[0].topic).to.eql("mitch");
         });
     });
   });
