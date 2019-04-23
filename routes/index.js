@@ -1,1 +1,2 @@
-module.exports = require("./topics");
+exports.topicsRouter = require("./topics");
+exports.apiRouter = require("./api");

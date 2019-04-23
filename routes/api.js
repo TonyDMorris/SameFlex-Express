@@ -3,9 +3,8 @@ const { topicsRouter } = require("./index");
 const { methodNotAllowed } = require("../errors");
 
 apiRouter
-  .route("/")
-  .get("/topics", topicsRouter)
-  .get((req, res) => res.send({ ok: true }))
+  .get("/", (req, res) => res.send({ ok: true }))
+  .use("/topics", topicsRouter)
   .all(methodNotAllowed);
 
 module.exports = apiRouter;

@@ -1,4 +1,11 @@
 const knex = require("../db/connection");
 const fetchTopics = () => {
-  return knex;
+  console.log("made it tot he model");
+  return knex("topics")
+    .select("*")
+    .then(topics => {
+      return { topics };
+    });
 };
+
+module.exports = fetchTopics;
