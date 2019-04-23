@@ -1,5 +1,11 @@
 const knex = require("../db/connection");
-const fetchArticles = (sort_by = "author", order = "desc", author, topic) => {
+const fetchArticles = (
+  sort_by = "author",
+  order = "desc",
+  author,
+  topic,
+  id
+) => {
   return knex
     .select(
       "articles.article_id",
@@ -15,18 +21,14 @@ const fetchArticles = (sort_by = "author", order = "desc", author, topic) => {
     .groupBy("articles.article_id")
     .leftJoin("comments", "articles.article_id", "comments.article_id")
     .modify(queryBuilder => {
-      if (author && topic) {
-        queryBuilder.where({
-          "articles.author": author,
-          "articles.topic": topic
-        });
-      } else {
-        if (author) {
-          queryBuilder.where({ "articles.author": author });
-        }
-        if (topic) {
-          queryBuilder.where({ "articles.topic": topic });
-        }
+      if (author) {
+        queryBuilder.where({ "articles.author": author });
+      }
+      if (topic) {
+        queryBuilder.where({ "articles.topic": topic });
+      }
+      if (id) {
+        queryBuilder.where({ "articles.article_id": id });
       }
     })
     .orderBy(sort_by, order)
