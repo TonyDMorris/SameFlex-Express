@@ -245,4 +245,14 @@ describe("/", () => {
         });
     });
   });
+  describe.only("/api/article_id/comments", () => {
+    it("GET 200 returns an array of comments for the relevant article", () => {
+      return request(app)
+        .get("/api/articles/5/comments")
+        .then(({ body }) => {
+          console.log(body);
+          expect(body).to.be.an("array");
+        });
+    });
+  });
 });
