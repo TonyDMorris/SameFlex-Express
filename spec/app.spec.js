@@ -146,7 +146,7 @@ describe.only("/", () => {
           expect(articles[0].topic).to.eql("mitch");
         });
     });
-    it("both quries can be used together", () => {
+    it("both querys can be used together", () => {
       return request(app)
         .get("/api/articles?topic=mitch&author=rogersop")
         .expect(200)
@@ -155,6 +155,83 @@ describe.only("/", () => {
 
           expect(articles[0].author).to.eql("rogersop");
           expect(articles[0].topic).to.eql("mitch");
+        });
+    });
+  });
+  describe("GET /api/articles/:article_id", () => {
+    it("when given a paramter of 1 should return an article with the given article id", () => {
+      return request(app)
+        .get("/api/articles/1")
+        .expect(200)
+        .then(({ body }) => {
+          const { articles } = body.articles;
+
+          expect(articles[0].article_id).to.eql(1);
+        });
+    });
+    it("when given a paramter of 2 should return an article with the given article id", () => {
+      return request(app)
+        .get("/api/articles/2")
+        .expect(200)
+        .then(({ body }) => {
+          const { articles } = body.articles;
+
+          expect(articles[0].article_id).to.eql(2);
+        });
+    });
+  });
+  describe("PATCH /api/articles/:article_id", () => {
+    it("when given a paramter of 1 should return an article with the given article id", () => {
+      return request(app)
+        .patch("/api/articles/4")
+        .send({ inc_votes: 2 })
+        .expect(201)
+        .then(({ body }) => {
+          const article = body.updatedArticle[0];
+          expect(article.votes).to.eql(2);
+        });
+    });
+    it("PATCH when passed an object copntaining inc_votes it increments the given article id by the given number of votes", () => {
+      return request(app)
+        .patch("/api/articles/4")
+        .send({ inc_votes: 5 })
+        .expect(201)
+        .then(({ body }) => {
+          const article = body.updatedArticle[0];
+          expect(article.votes).to.eql(5);
+        });
+    });
+
+    it("PATCH when passed an object copntaining inc_votes it increments the given article id by the given number of votes", () => {
+      return request(app)
+        .patch("/api/articles/4")
+        .send({ inc_votes: 5 })
+        .expect(201)
+        .then(({ body }) => {
+          const article = body.updatedArticle[0];
+          expect(article.votes).to.eql(5);
+        });
+    });
+    it("will check for invalid vote increments ", () => {
+      return request(app)
+        .patch("/api/articles/4")
+        .send({})
+        .expect(400)
+        .then(({ error }) => {
+          expect(error.text).to.eql(
+            "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
+          );
+        });
+    });
+    it("will check for malformed or missing param", () => {
+      return request(app)
+        .patch("/api/articles/d")
+        .send({ inc_votes: 5 })
+        .expect(422)
+        .then(({ error }) => {
+          expect(error.text).to.eql(
+            "Malformed article_id param. The client SHOULD NOT repeat the request without modifications"
+          );
         });
     });
   });
