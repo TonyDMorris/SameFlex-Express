@@ -1,7 +1,6 @@
 const { createRef, formatDate, renameKeys } = require("../../utils/utils");
 const { topics, users, articles, comments } = require("../data/index");
 exports.seed = (knex, Promise) => {
-  console.log(topics);
   return knex.migrate
     .rollback()
     .then(() => knex.migrate.latest())
