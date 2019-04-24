@@ -12,9 +12,9 @@ exports.handle500 = (err, req, res, next) => {
 };
 
 exports.badRequest = (err, req, res, next) => {
-  if (err.code) {
-    res.status(400).send({ msg: "Bad request" });
-  }
+  console.log(err);
+
+  res.status(400).send({ msg: "Bad request" });
 };
 
 exports.customError = (err, req, res, next) => {

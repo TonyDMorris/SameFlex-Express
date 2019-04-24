@@ -6,6 +6,7 @@ const insertComment = (body, username, article_id) => {
     votes: 0,
     body: body
   };
+
   return knex("comments")
     .insert(comment)
     .returning("*");

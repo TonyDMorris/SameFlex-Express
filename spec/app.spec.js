@@ -321,7 +321,7 @@ describe("/", () => {
         })
         .expect(400);
     });
-    it.only("returns 400 if the param of the request is malformed", () => {
+    it("returns 400 if the param of the request is malformed", () => {
       return request(app)
         .post("/api/articles/d/comments")
         .send({

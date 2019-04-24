@@ -9,7 +9,6 @@ const postComment = (req, res, next) => {
     };
     return next(err);
   }
-
   insertComment(body, username, article_id)
     .then(comment => {
       res.status(201).send(comment);
