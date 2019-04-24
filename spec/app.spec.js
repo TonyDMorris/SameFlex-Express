@@ -116,7 +116,7 @@ describe("/", () => {
           expect(articles).to.be.descendingBy("votes");
         });
     });
-    it("accepts an optional order query to for order direction of sort by", () => {
+    it("accepts an optional order query for order direction of sort by", () => {
       return request(app)
         .get("/api/articles?sort_by=votes&order=asc")
         .expect(200)
@@ -126,7 +126,7 @@ describe("/", () => {
           expect(articles).to.be.ascendingBy("votes");
         });
     });
-    it("accept a author query", () => {
+    it("accepts an author query and returns the relevant articles", () => {
       return request(app)
         .get("/api/articles?author=icellusedkars")
         .expect(200)
@@ -136,7 +136,7 @@ describe("/", () => {
           expect(articles[0].author).to.eql("icellusedkars");
         });
     });
-    it("accepts a topic query", () => {
+    it("accepts a topic query and returns the relevant articles", () => {
       return request(app)
         .get("/api/articles?topic=mitch")
         .expect(200)
@@ -181,7 +181,7 @@ describe("/", () => {
     });
   });
   describe("PATCH /api/articles/:article_id", () => {
-    it("when given a paramter of 1 should return an article with the given article id", () => {
+    it("when given a paramter of 1 should return an article with the given article id with the votes incremented by the given amount", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({ inc_votes: 2 })
@@ -191,7 +191,7 @@ describe("/", () => {
           expect(article.votes).to.eql(2);
         });
     });
-    it("PATCH when passed an object copntaining inc_votes it increments the given article id by the given number of votes", () => {
+    it("PATCH when passed an object containing inc_votes it increments the given article id by the given number of votes", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({ inc_votes: 5 })
@@ -202,7 +202,7 @@ describe("/", () => {
         });
     });
 
-    it("PATCH when passed an object copntaining inc_votes it increments the given article id by the given number of votes", () => {
+    it("PATCH when passed an object containing inc_votes it increments the given article id by the given number of votes", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({ inc_votes: 5 })
@@ -212,7 +212,7 @@ describe("/", () => {
           expect(article.votes).to.eql(5);
         });
     });
-    it("PATCH when passed an object copntaining inc_votes can be used to decrease votes", () => {
+    it("PATCH when passed an object containing inc_votes can be used to decrease votes", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({ inc_votes: -5 })
