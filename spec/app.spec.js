@@ -288,9 +288,38 @@ describe("/", () => {
         .get("/api/articles/1/comments?sort_by=author&order=asc")
         .expect(200)
         .then(({ body }) => {
-          console.log(body);
           expect(body).to.be.ascendingBy("author");
         });
+    });
+  });
+  describe("POST api/articles/:article_id/comments", () => {
+    it("returns a status of 201 created and the created comment", () => {
+      return request(app)
+        .post("/api/articles/1/comments")
+        .send({
+          body: "this is a brand new comment",
+          username: "icellusedkars"
+        })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body[0]).to.have.keys(
+            "article_id",
+            "author",
+            "body",
+            "comment_id",
+            "votes",
+            "created_at"
+          );
+        });
+    });
+    it("returns 400 if the body of the request is malformed", () => {
+      return request(app)
+        .post("/api/articles/1/comments")
+        .send({
+          bidy: "this is a brand new comment",
+          username: "icellusedkars"
+        })
+        .expect(400);
     });
   });
 });
