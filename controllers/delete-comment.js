@@ -7,7 +7,7 @@ const deleteComment = (req, res, next) => {
         const err = { msg: "no comment by that id", status: 400 };
         return Promise.reject(err);
       }
-      res.status(202).send();
+      res.status(204).send();
     })
     .catch(next);
 };
