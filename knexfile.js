@@ -25,6 +25,13 @@ const customConfigs = {
       username: "tony",
       password: "password"
     }
+  },
+  production: {
+    connection: {
+      database: "nc_news",
+      username: "tony",
+      password: "password"
+    }
   }
 };
 
