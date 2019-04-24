@@ -380,5 +380,15 @@ describe("/", () => {
           );
         });
     });
+    it("DELETE 202 will respond with a successful 202 when a comment is deleted", () => {
+      return request(app)
+        .delete("/api/comments/1")
+        .expect(202);
+    });
+    it("DELETE 400 will respond with an error if a comment does not exist to be deleted", () => {
+      return request(app)
+        .delete("/api/comments/1000")
+        .expect(400);
+    });
   });
 });
