@@ -2,6 +2,7 @@ const ENV = process.env.NODE_ENV || "development";
 
 const baseConfig = {
   client: "pg",
+  connection: process.env.DATABASE_URL,
   migrations: {
     directory: "./db/migrations"
   },
@@ -13,7 +14,7 @@ const baseConfig = {
 const customConfigs = {
   development: {
     connection: {
-      database: process.env.DATABASE_URL || "nc_news",
+      database: "nc_news",
       username: "tony",
       password: "password"
     }
