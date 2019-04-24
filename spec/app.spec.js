@@ -1,24 +1,23 @@
 process.env.NODE_ENV = "test";
-
 const { expect } = require("chai");
 const chai = require("chai");
 chai.use(require("chai-sorted"));
 const app = require("../app");
 const knex = require("../db/connection");
-
 const request = require("supertest");
+const endPoints = require("../controllers/api-index");
 
 describe("/", () => {
   beforeEach(() => knex.seed.run());
   after(() => knex.destroy());
 
   describe("/api", () => {
-    it("GET status:200", () => {
+    it.only("GET status:200", () => {
       return request(app)
         .get("/api")
         .expect(200)
         .then(({ body }) => {
-          expect(body.ok).to.equal(true);
+          expect(body).to.eql(endPoints);
         });
     });
     describe("/topics", () => {
@@ -402,6 +401,7 @@ describe("/", () => {
         .get("/api/users/icellusedkars")
         .expect(200)
         .then(({ body }) => {
+          console.log(body[0]);
           expect(body[0]).to.have.keys("username", "avatar_url", "name");
         });
     });

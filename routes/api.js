@@ -3,10 +3,11 @@ const topicsRouter = require("./topics");
 const articlesRouter = require("./articles");
 const commentsRouter = require("./comments");
 const usersRouter = require("./users");
+const sendApiInfo = require("../controllers/send-api-info");
 const { methodNotAllowed } = require("../errors");
 
 apiRouter
-  .get("/", (req, res) => res.send({ ok: true }))
+  .get("/", sendApiInfo)
   .use("/topics", topicsRouter)
   .use("/articles", articlesRouter)
   .use("/comments", commentsRouter)
