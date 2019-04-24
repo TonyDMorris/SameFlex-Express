@@ -1,6 +1,11 @@
 const express = require("express");
 const { apiRouter } = require("./routes/index");
-const { routeNotFound, handle500 } = require("./errors");
+const {
+  routeNotFound,
+  handle500,
+  customError,
+  badRequest
+} = require("./errors");
 
 const app = express();
 
@@ -10,12 +15,8 @@ app.use("/api", apiRouter);
 
 app.all("/*", routeNotFound);
 
-app.use((err, req, res, next) => {
-  if (err.status) {
-    res.status(err.status).send(err.msg);
-  } else {
-    handle500();
-  }
-});
+app.use(customError);
+app.use(badRequest);
+app.use(handle500);
 
 module.exports = app;

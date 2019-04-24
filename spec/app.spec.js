@@ -237,21 +237,42 @@ describe("/", () => {
       return request(app)
         .patch("/api/articles/d")
         .send({ inc_votes: 5 })
-        .expect(422)
+        .expect(400)
         .then(({ error }) => {
           expect(error.text).to.eql(
-            "Malformed article_id param. The client SHOULD NOT repeat the request without modifications"
+            "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
           );
         });
     });
   });
-  describe.only("/api/article_id/comments", () => {
+  describe("/api/article_id/comments", () => {
     it("GET 200 returns an array of comments for the relevant article", () => {
       return request(app)
         .get("/api/articles/5/comments")
         .then(({ body }) => {
-          console.log(body);
           expect(body).to.be.an("array");
+          expect(body[0]).to.have.keys(
+            `comment_id`,
+            "votes",
+            "created_at",
+            "author",
+            "body"
+          );
+          expect(body[0].comment_id).to.be.an("number");
+          expect(body[0].votes).to.be.an("number");
+          expect(body[0].author).to.be.an("string");
+          expect(body[0].body).to.be.an("string");
+          expect(body[0].created_at).to.be.an("string");
+        });
+    });
+    it("non articles should return a message", () => {
+      return request(app)
+        .get("/api/articles/500/comments")
+        .expect(404)
+        .then(error => {
+          expect(error.text).to.eql(
+            "no comments for this article or no article exists"
+          );
         });
     });
   });

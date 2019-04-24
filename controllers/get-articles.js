@@ -3,7 +3,7 @@ const getArticles = (req, res, next) => {
   const { sort_by, order, author, topic } = req.query;
   const { article_id } = req.params;
 
-  return fetchArticles(sort_by, order, author, topic, article_id)
+  fetchArticles(sort_by, order, author, topic, article_id)
     .then(articles => {
       res.status(200).send({ articles });
     })
