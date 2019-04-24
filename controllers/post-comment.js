@@ -2,7 +2,7 @@ const insertComment = require("../models/insert-comment");
 const postComment = (req, res, next) => {
   const { body, username } = req.body;
   const { article_id } = req.params;
-  if (!body || !username || !article_id) {
+  if (!body || !username || /\D/g.test(article_id)) {
     const err = {
       msg: "malformed body or missing paramater please correct before resubmit",
       status: 400
