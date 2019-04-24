@@ -265,7 +265,7 @@ describe("/", () => {
           expect(body[0].created_at).to.be.an("string");
         });
     });
-    it("non articles should return a message", () => {
+    it("non articles should return a message and a 404 status code", () => {
       return request(app)
         .get("/api/articles/500/comments")
         .expect(404)
@@ -273,6 +273,23 @@ describe("/", () => {
           expect(error.text).to.eql(
             "no comments for this article or no article exists"
           );
+        });
+    });
+    it("sorts by default to created at in desc order", () => {
+      return request(app)
+        .get("/api/articles/5/comments")
+        .expect(200)
+        .then(({ body }) => {
+          expect(body).to.be.descendingBy("created_at");
+        });
+    });
+    it("accepts a sort_by column as a query and an order ", () => {
+      return request(app)
+        .get("/api/articles/1/comments?sort_by=author&order=asc")
+        .expect(200)
+        .then(({ body }) => {
+          console.log(body);
+          expect(body).to.be.ascendingBy("author");
         });
     });
   });
