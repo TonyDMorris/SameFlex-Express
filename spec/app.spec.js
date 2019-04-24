@@ -391,4 +391,27 @@ describe("/", () => {
         .expect(400);
     });
   });
+  describe("/api/users/:username", () => {
+    it("GET should return a status of 200 and the relevant user", () => {
+      return request(app)
+        .get("/api/users/icellusedkars")
+        .expect(200);
+    });
+    it("should return the given user with the apropriate keys", () => {
+      return request(app)
+        .get("/api/users/icellusedkars")
+        .expect(200)
+        .then(({ body }) => {
+          expect(body[0]).to.have.keys("username", "avatar_url", "name");
+        });
+    });
+    it("if the user does not exist should return 404 not found", () => {
+      return request(app)
+        .get("/api/users/icelluedkars")
+        .expect(404)
+        .then(({ error }) => {
+          expect(error.text).to.eql("user not found");
+        });
+    });
+  });
 });
