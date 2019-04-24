@@ -42,8 +42,5 @@ exports.seed = (knex, Promise) => {
         .insert(adjustedComments)
         .into("comments")
         .returning("*");
-    })
-    .then(() => {
-      console.log("finished seeding");
     });
 };

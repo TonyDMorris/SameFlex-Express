@@ -12,7 +12,7 @@ describe("/", () => {
   after(() => knex.destroy());
 
   describe("/api", () => {
-    it.only("GET status:200", () => {
+    it("GET status:200", () => {
       return request(app)
         .get("/api")
         .expect(200)
@@ -243,6 +243,12 @@ describe("/", () => {
           );
         });
     });
+    it("will check for invalid id", () => {
+      return request(app)
+        .patch("/api/articles/1000")
+        .send({ inc_votes: -5 })
+        .expect(404);
+    });
   });
   describe("/api/article_id/comments", () => {
     it("GET 200 returns an array of comments for the relevant article", () => {
@@ -368,6 +374,12 @@ describe("/", () => {
           );
         });
     });
+    it("will check for invalid id", () => {
+      return request(app)
+        .patch("/api/comments/1000")
+        .send({ inc_votes: -5 })
+        .expect(404);
+    });
     it("will check for malformed a param", () => {
       return request(app)
         .patch("/api/comments/d")
@@ -379,7 +391,7 @@ describe("/", () => {
           );
         });
     });
-    it("DELETE 204 will respond with a successful 202 when a comment is deleted", () => {
+    it("DELETE 204 will respond with a successful 204 when a comment is deleted", () => {
       return request(app)
         .delete("/api/comments/1")
         .expect(204);
@@ -401,7 +413,6 @@ describe("/", () => {
         .get("/api/users/icellusedkars")
         .expect(200)
         .then(({ body }) => {
-          console.log(body[0]);
           expect(body[0]).to.have.keys("username", "avatar_url", "name");
         });
     });
