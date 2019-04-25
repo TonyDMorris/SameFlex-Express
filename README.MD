@@ -1,4 +1,4 @@
-# Project Title
+# NC-NEWS
 
 NC-NEWS is my attemp at a replication of a back-end news website.
 I created this to learn more about Express.js, Knex.js, TDD, and Node.js in general.
