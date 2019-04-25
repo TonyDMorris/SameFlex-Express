@@ -64,8 +64,9 @@ const customConfigs = {
 
 #### its highly recommended that you import these in from a file that is gitignored so that when these files are commited to your remote repository your private information is not available for all to see.
 
-### Once you have initialised your dev and test databases you can use knex migrate to make use of the supplied migration files under ./db/migrations
+### Knex migrations
 
+Once you have initialised your dev and test databases you can use knex migrate to make use of the supplied migration files under ./db/migrations.
 the following command will tell knex to execute each of the migration files in time stamp order.
 
 ```bash
@@ -74,8 +75,9 @@ knex migrate:latest
 
 this will create all of the necessary tables for your database with the correct columns.
 
-### Once the tables and columns have been established we need to seed them, luckily knex has another command which allows us to do this.
+### Seeding
 
+Once the tables and columns have been established we need to seed them, luckily knex has another command which allows us to do this.
 Using knex seed run tells knex to execute the seed file located in ./knexfile.js
 e.g...
 
