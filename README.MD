@@ -349,7 +349,7 @@ heroku logs --tail
 
 ## Contributing
 
-Feel free to fork and use as you like, also any pull requests will be inspected and and actioned.
+Feel free to fork and use as you like, also any pull requests will be inspected and actioned.
 
 ## License
 
