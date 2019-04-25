@@ -4,7 +4,9 @@ const fetchArticles = (
   order = "desc",
   author,
   topic,
-  id
+  id,
+  limit = 5,
+  page = 1
 ) => {
   return knex
     .select(
@@ -31,6 +33,8 @@ const fetchArticles = (
         queryBuilder.where({ "articles.article_id": id });
       }
     })
+    .limit(limit)
+    .offset(page * limit - limit)
     .orderBy(sort_by, order)
     .then(articles => {
       return { articles };

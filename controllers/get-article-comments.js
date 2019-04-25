@@ -1,8 +1,8 @@
 const fetchArticleComments = require("../models/fetch-article-comments");
 const getArticleComments = (req, res, next) => {
-  const { sort_by, order } = req.query;
+  const { sort_by, order, limit, page } = req.query;
   const { article_id } = req.params;
-  fetchArticleComments(article_id, sort_by, order)
+  fetchArticleComments(article_id, sort_by, order, limit, page)
     .then(comments => {
       if (!comments[0]) {
         const err = {
