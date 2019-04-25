@@ -9,7 +9,7 @@ a working version of this back end is hosted on [Heroku](https://pure-falls-3905
 
 For this project a number of scripts are included but the following instructions will tell you how to do this using the native knex and psql commands
 
-### first things first
+### First things first
 
 for this to work you will need to install psql, you can follow the tutorial here for linux [psql](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
 
@@ -27,7 +27,7 @@ npm install
 
 This will install a number of dependencies including mocha, chai,chai-sorted, pg, knex,supertest, and express.
 
-#### please note you will need to install knex globally to make use of the raw knex commands that are about to follow
+#### Please note you will need to install knex globally to make use of the raw knex commands that are about to follow
 
 In order to setup this project locally you should run the setup.sql file located under ./db/setup.sql
 
@@ -37,7 +37,7 @@ You can do this by executing this command.
 psql -f ./db/setup.sql
 ```
 
-### linux users only
+### Linux users only
 
 Once your database is up and running you will need to navigate to ./knexfile.js
 
@@ -62,7 +62,7 @@ const customConfigs = {
     }
 ```
 
-#### its highly recommended that you import these in from a file that is gitignored so that when these files are commited to your remote repository your private information is not available for all to see.
+#### It is highly recommended that you import these in from a file that is gitignored so that when these files are commited to your remote repository your private information is not available for all to see.
 
 ### Knex migrations
 
@@ -111,7 +111,7 @@ this will seed the database with some data, you can find the raw data here --> .
 To check your migrations and seeding worked you can login to psql \c into nc_news and select \* from articles
 to receive a huge list of articles.
 
-## testing using mocha chai and NODE_ENV
+## Testing using mocha chai and NODE_ENV
 
 As noted earlier in the tutorial there was a conditional variable declaration in the knexfile.js
 
