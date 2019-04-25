@@ -7,13 +7,22 @@ exports.methodNotAllowed = (req, res) => {
 };
 
 exports.handle500 = (err, req, res, next) => {
+  console.log(err);
   res.status(500).send({ msg: "Internal Server Error" });
 };
 
 exports.badRequest = (err, req, res, next) => {
-  if (err.code) {
+  const psqlCodes = {
+    "42703": { code: 400, text: "bad query or malformed body of post request" },
+    "22P02": { code: 404, text: "no id exists" },
+    "23502": {
+      code: 400,
+      text: "malformed post body please recheck and try again"
+    }
+  };
+  if (psqlCodes[err.code]) {
     console.log(err);
-    res.status(400).send(err.msg);
+    res.status(psqlCodes[err.code].code).send(psqlCodes[err.code].text);
   } else {
     next(err);
   }

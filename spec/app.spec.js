@@ -186,9 +186,7 @@ describe("/", () => {
           author: "butter_bridge"
         })
         .expect(201)
-        .then(thing => {
-          console.log(thing);
-        });
+        .then(({ body }) => {});
     });
   });
   describe("GET /api/articles/:article_id", () => {
