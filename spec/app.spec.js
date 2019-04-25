@@ -156,6 +156,40 @@ describe("/", () => {
           expect(articles[0].topic).to.eql("mitch");
         });
     });
+    it("pagination using page query", () => {
+      return request(app)
+        .get("/api/articles?page=1&sort_by=article_id&order=asc")
+        .expect(200)
+        .then(({ body }) => {
+          const { articles } = body.articles;
+
+          expect(articles[0].article_id).to.eql(1);
+        });
+    });
+    it("pagination using page query", () => {
+      return request(app)
+        .get("/api/articles?page=2&sort_by=article_id&order=asc")
+        .expect(200)
+        .then(({ body }) => {
+          const { articles } = body.articles;
+
+          expect(articles[0].article_id).to.eql(6);
+        });
+    });
+    it.only("POST 201 inserts an article to the database and return the article with its allocated id", () => {
+      return request(app)
+        .post("/api/articles")
+        .send({
+          title: "title",
+          body: "body",
+          topic: "cats",
+          author: "butter_bridge"
+        })
+        .expect(201)
+        .then(thing => {
+          console.log(thing);
+        });
+    });
   });
   describe("GET /api/articles/:article_id", () => {
     it("when given a paramter of 1 should return an article with the given article id", () => {
