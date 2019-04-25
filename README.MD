@@ -29,7 +29,7 @@ This will install a number of dependencies including mocha, chai,chai-sorted, pg
 
 ##### please note you will need to install knex globally to make use of the raw knex commands that are about to follow
 
-####In order to setup this project locally you should run the setup.sql file located under ./db/setup.sql
+In order to setup this project locally you should run the setup.sql file located under ./db/setup.sql
 
 You can do this by executing this command.
 
