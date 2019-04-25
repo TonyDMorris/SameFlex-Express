@@ -12,7 +12,7 @@ describe("/", () => {
   after(() => knex.destroy());
 
   describe("/api", () => {
-    it("GET status:200", () => {
+    it("GET status:200 and returns an object containing keys of all the available end points and methods", () => {
       return request(app)
         .get("/api")
         .expect(200)
@@ -21,7 +21,7 @@ describe("/", () => {
         });
     });
     describe("/topics", () => {
-      it("GET should return a status code of 200 and an array  of topic objects proceeded by a topics key", () => {
+      it("GET should return a status code of 200 and an array of topic objects proceeded by a topics key", () => {
         return request(app)
           .get("/api/topics")
           .expect(200)
@@ -58,7 +58,7 @@ describe("/", () => {
             expect(msg).to.eql("Method Not Allowed");
           });
       });
-      it("DELETE should all return a 405 method not allowed error", () => {
+      it("DELETE should return a 405 method not allowed error", () => {
         return request(app)
           .delete("/api/topics")
           .expect(405)
@@ -403,7 +403,7 @@ describe("/", () => {
     });
   });
   describe("/api/users/:username", () => {
-    it("GET should return a status of 200 and the relevant user", () => {
+    it("GET should return a status of 200", () => {
       return request(app)
         .get("/api/users/icellusedkars")
         .expect(200);
@@ -414,6 +414,7 @@ describe("/", () => {
         .expect(200)
         .then(({ body }) => {
           expect(body[0]).to.have.keys("username", "avatar_url", "name");
+          expect(body[0].username).to.eql("icellusedkars");
         });
     });
     it("if the user does not exist should return 404 not found", () => {
