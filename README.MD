@@ -13,7 +13,7 @@ For this project a number of scripts are included but the following instructions
 
 for this to work you will need to install psql, you can follow the tutorial here for linux [psql](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
 
-### IT IS HIGHLY RECOMENDED THAT YOU SETUP PSQL WITH A NEW PASSWORD YOU HAVE NOT USED ANYWHERE ELSE AS SOME MISTAKES COULD LEAD TO YOU COMMITING THIS INFORMATION TO THE INTERNET.
+#### IT IS HIGHLY RECOMENDED THAT YOU SETUP PSQL WITH A NEW PASSWORD YOU HAVE NOT USED ANYWHERE ELSE AS SOME MISTAKES COULD LEAD TO YOU COMMITING THIS INFORMATION TO THE INTERNET.
 
 As the setup is different on linux than on other systems i will be focusing on linux but the instructions are genrally relevant to all systems
 the main diffrence is that knex requires your database username and password to make a connection.
@@ -27,7 +27,7 @@ npm install
 
 This will install a number of dependencies including mocha, chai,chai-sorted, pg, knex,supertest, and express.
 
-### please note you will need to install knex globally to make use of the raw knex commands that are about to follow
+#### please note you will need to install knex globally to make use of the raw knex commands that are about to follow
 
 In order to setup this project locally you should run the setup.sql file located under ./db/setup.sql
 
@@ -62,7 +62,7 @@ const customConfigs = {
     }
 ```
 
-## its highly recommended that you import these in from a file that is gitignored so that when these files are commited to your remote repository your private information is not available for all to see.
+#### its highly recommended that you import these in from a file that is gitignored so that when these files are commited to your remote repository your private information is not available for all to see.
 
 ### Once you have initialised your dev and test databases you can use knex migrate to make use of the supplied migration files under ./db/migrations
 
@@ -173,9 +173,9 @@ to receive a series of test articles
 
 once this is done and your tests have passed you can move on to deployment.
 
-##Deployment using heroku
+## Deployment using heroku
 
-## 1. Install the Heroku CLI
+### 1. Install the Heroku CLI
 
 On macOS:
 
@@ -189,7 +189,7 @@ brew tap heroku/brew && brew install heroku
 sudo snap install --classic heroku
 ```
 
-## 2. Create a Heroku App
+### 2. Create a Heroku App
 
 Log into Heroku using their command line interface:
 
@@ -212,13 +212,13 @@ Check this by looking at your git remotes:
 git remote -v
 ```
 
-## 3. Push Your code up to Heroku
+### 3. Push Your code up to Heroku
 
 ```bash
 git push heroku master
 ```
 
-## 4. Creating a Hosted Database
+### 4. Creating a Hosted Database
 
 Go to the heroku site and log in.
 
@@ -230,7 +230,7 @@ The free tier will be adequate for our purposes. This will provide you with a `p
 
 Check that the database exists. Click `settings` on it, and view the credentials. Keep an eye on the URI. Don't close this yet!
 
-## 5. Seeding the Production Database
+### 5. Seeding the Production Database
 
 Check that your database's url is added to the environment variables on Heroku:
 
@@ -290,7 +290,7 @@ Make sure to **run the seed prod script** from your `package.json`:
 npm run seed:prod
 ```
 
-## 6. Use Heroku's PORT
+### 6. Use Heroku's PORT
 
 In `listen.js`, make sure you take the PORT off the environment object if it's provided, like so:
 
@@ -300,7 +300,7 @@ const { PORT = 9090 } = process.env;
 app.listen(PORT, () => console.log(`Listening on ${PORT}...`));
 ```
 
-## 7. Add a start script
+### 7. Add a start script
 
 Make sure your package.json has this as a start script:
 
@@ -314,7 +314,7 @@ Commit your changes, and push to heroku master.
 git push heroku master
 ```
 
-## 8. Review Your App
+### 8. Review Your App
 
 ```bash
 heroku open
