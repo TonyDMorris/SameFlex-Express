@@ -176,6 +176,8 @@ once this is done and your tests have passed you can move on to deployment.
 
 ## Deployment using heroku
 
+Please take note that some of the following steps have already been completed for you but they serve as a good reference as to how the project operates in regards to heroku environment variables so it is strongy advised you follow each step anyway even if the relevant changes are already present in the file.
+
 ### 1. Install the Heroku CLI
 
 On macOS:
@@ -327,22 +329,28 @@ Any issues should be debugged with:
 heroku logs --tail
 ```
 
-### first things first
-
-To deploy this project to the web you will need to create a heroku account and install the heroku cli
-
-you can follow this tutorial [Heroku](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
-
 ## Built With
+
+[Express.js](https://expressjs.com/)
+
+[Knex.js](https://knexjs.org/)
+
+[Mocha](https://mochajs.org/)
+
+[chai](https://www.chaijs.com/)
+
+[Supertest](https://www.npmjs.com/package/supertest)
+
+[Nodemon](https://nodemon.io/)
+
+[PG](https://node-postgres.com/)
+
+[Psql](https://www.postgresql.org/)
 
 ## Contributing
 
-## Versioning
-
-## Authors
+Feel free to fork and use as you like, also any pull requests will be inspected and and actioned.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
