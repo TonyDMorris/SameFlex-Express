@@ -135,7 +135,7 @@ Node.js allows us to manually set an environment property in node and refrence t
 you will notice that the module.exports at the bottom of the file exports a spread of the base config and corresponding key of the customConfig object
 
 ```js
-onst customConfigs = {
+const customConfigs = {
   development: {
     connection: {
       database: "nc_news",
@@ -156,7 +156,6 @@ onst customConfigs = {
 };
 
 module.exports = { ...baseConfig, ...customConfigs[ENV] }; //<----
-
 ```
 
 noramlly you would make use of this by setting your NODE_ENV to test within the cli before running you knex migrate and knex seed commands but as this repo comes complete with a ready made suite of tests you can simply make use the npm test script provided in the package JSON.
