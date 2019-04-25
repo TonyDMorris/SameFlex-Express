@@ -37,7 +37,12 @@ const fetchArticles = (
     .offset(page * limit - limit)
     .orderBy(sort_by, order)
     .then(articles => {
-      return { articles };
+      if (articles.length === 1) {
+        const [article] = articles;
+        return { article };
+      } else {
+        return { articles };
+      }
     });
 };
 

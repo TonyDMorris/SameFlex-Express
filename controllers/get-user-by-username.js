@@ -3,7 +3,7 @@ const getUserByUsername = (req, res, next) => {
   const { username } = req.params;
   fetchUserByUsername(username)
     .then(user => {
-      if (!user[0]) {
+      if (!user.user[0]) {
         const err = { msg: "user not found", status: 404 };
         return Promise.reject(err);
       }

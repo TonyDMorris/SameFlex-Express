@@ -18,11 +18,17 @@ exports.badRequest = (err, req, res, next) => {
     "23502": {
       code: 400,
       text: "malformed post body please recheck and try again"
+    },
+    "23503": {
+      code: 404,
+      text: "malformed post body please recheck and try again"
     }
   };
   if (psqlCodes[err.code]) {
     console.log(err);
-    res.status(psqlCodes[err.code].code).send(psqlCodes[err.code].text);
+    res
+      .status(psqlCodes[err.code].code)
+      .send(err.detail || psqlCodes[err.code].text);
   } else {
     next(err);
   }

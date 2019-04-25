@@ -5,7 +5,7 @@ const getArticles = (req, res, next) => {
 
   fetchArticles(sort_by, order, author, topic, article_id, limit, page)
     .then(articles => {
-      res.status(200).send({ articles });
+      res.status(200).send(articles);
     })
     .catch(next);
 };

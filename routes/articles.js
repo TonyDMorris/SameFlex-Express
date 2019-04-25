@@ -9,7 +9,8 @@ const { methodNotAllowed } = require("../errors/index");
 articlesRouter
   .route("/")
   .get(getArticles)
-  .post(postArticle);
+  .post(postArticle)
+  .all(methodNotAllowed);
 articlesRouter
   .route("/:article_id")
   .get(getArticles)
@@ -19,5 +20,6 @@ articlesRouter
 articlesRouter
   .route("/:article_id/comments")
   .get(getArticleComments)
-  .post(postComment);
+  .post(postComment)
+  .all(methodNotAllowed);
 module.exports = articlesRouter;

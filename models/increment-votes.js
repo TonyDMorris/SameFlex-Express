@@ -4,8 +4,8 @@ const incrementVotes = (inc_votes, article_id) => {
     .where({ article_id })
     .increment("votes", inc_votes)
     .returning("*")
-    .then(article => {
-      return { updatedArticle: article };
+    .then(([article]) => {
+      return { article };
     });
 };
 module.exports = incrementVotes;

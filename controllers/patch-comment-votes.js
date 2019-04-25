@@ -12,7 +12,7 @@ const patchCommentVotes = (req, res, next) => {
   }
   incrementCommentVotes(+inc_votes, comment_id)
     .then(comment => {
-      if (!comment.updatedComment[0]) {
+      if (!comment.comment) {
         const err = { msg: "no such comment", status: 404 };
         return Promise.reject(err);
       }

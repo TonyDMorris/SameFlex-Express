@@ -75,7 +75,8 @@ describe("/", () => {
         .get("/api/articles")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
+
           expect(articles[0]).to.have.keys(
             "article_id",
             "title",
@@ -101,7 +102,7 @@ describe("/", () => {
         .get("/api/articles")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
           expect(articles).to.be.descendingBy("author");
         });
     });
@@ -110,7 +111,7 @@ describe("/", () => {
         .get("/api/articles?sort_by=votes")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
 
           expect(articles).to.be.descendingBy("votes");
         });
@@ -120,7 +121,7 @@ describe("/", () => {
         .get("/api/articles?sort_by=votes&order=asc")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
 
           expect(articles).to.be.ascendingBy("votes");
         });
@@ -130,7 +131,7 @@ describe("/", () => {
         .get("/api/articles?author=icellusedkars")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
 
           expect(articles[0].author).to.eql("icellusedkars");
         });
@@ -140,7 +141,7 @@ describe("/", () => {
         .get("/api/articles?topic=mitch")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
 
           expect(articles[0].topic).to.eql("mitch");
         });
@@ -150,7 +151,7 @@ describe("/", () => {
         .get("/api/articles?topic=mitch&author=rogersop")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
 
           expect(articles[0].author).to.eql("rogersop");
           expect(articles[0].topic).to.eql("mitch");
@@ -161,7 +162,7 @@ describe("/", () => {
         .get("/api/articles?page=1&sort_by=article_id&order=asc")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
 
           expect(articles[0].article_id).to.eql(1);
         });
@@ -171,12 +172,12 @@ describe("/", () => {
         .get("/api/articles?page=2&sort_by=article_id&order=asc")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const articles = body.articles;
 
           expect(articles[0].article_id).to.eql(6);
         });
     });
-    it.only("POST 201 inserts an article to the database and return the article with its allocated id", () => {
+    it("POST 201 inserts an article to the database and return the article with its allocated id", () => {
       return request(app)
         .post("/api/articles")
         .send({
@@ -186,7 +187,9 @@ describe("/", () => {
           author: "butter_bridge"
         })
         .expect(201)
-        .then(({ body }) => {});
+        .then(({ body }) => {
+          expect(body.insertedArticle).to.be.an("array");
+        });
     });
   });
   describe("GET /api/articles/:article_id", () => {
@@ -195,9 +198,9 @@ describe("/", () => {
         .get("/api/articles/1")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const article = body.article;
 
-          expect(articles[0].article_id).to.eql(1);
+          expect(article.article_id).to.eql(1);
         });
     });
     it("when given a paramter of 2 should return an article with the given article id", () => {
@@ -205,9 +208,9 @@ describe("/", () => {
         .get("/api/articles/2")
         .expect(200)
         .then(({ body }) => {
-          const { articles } = body.articles;
+          const article = body.article;
 
-          expect(articles[0].article_id).to.eql(2);
+          expect(article.article_id).to.eql(2);
         });
     });
   });
@@ -218,7 +221,7 @@ describe("/", () => {
         .send({ inc_votes: 2 })
         .expect(201)
         .then(({ body }) => {
-          const article = body.updatedArticle[0];
+          const article = body.article;
           expect(article.votes).to.eql(2);
         });
     });
@@ -228,7 +231,7 @@ describe("/", () => {
         .send({ inc_votes: 5 })
         .expect(201)
         .then(({ body }) => {
-          const article = body.updatedArticle[0];
+          const article = body.article;
           expect(article.votes).to.eql(5);
         });
     });
@@ -239,7 +242,7 @@ describe("/", () => {
         .send({ inc_votes: 5 })
         .expect(201)
         .then(({ body }) => {
-          const article = body.updatedArticle[0];
+          const article = body.article;
           expect(article.votes).to.eql(5);
         });
     });
@@ -249,7 +252,7 @@ describe("/", () => {
         .send({ inc_votes: -5 })
         .expect(201)
         .then(({ body }) => {
-          const article = body.updatedArticle[0];
+          const article = body.article;
           expect(article.votes).to.eql(-5);
         });
     });
@@ -287,19 +290,19 @@ describe("/", () => {
       return request(app)
         .get("/api/articles/5/comments")
         .then(({ body }) => {
-          expect(body).to.be.an("array");
-          expect(body[0]).to.have.keys(
+          expect(body.comments).to.be.an("array");
+          expect(body.comments[0]).to.have.keys(
             `comment_id`,
             "votes",
             "created_at",
             "author",
             "body"
           );
-          expect(body[0].comment_id).to.be.an("number");
-          expect(body[0].votes).to.be.an("number");
-          expect(body[0].author).to.be.an("string");
-          expect(body[0].body).to.be.an("string");
-          expect(body[0].created_at).to.be.an("string");
+          expect(body.comments[0].comment_id).to.be.an("number");
+          expect(body.comments[0].votes).to.be.an("number");
+          expect(body.comments[0].author).to.be.an("string");
+          expect(body.comments[0].body).to.be.an("string");
+          expect(body.comments[0].created_at).to.be.an("string");
         });
     });
     it("non articles should return a message and a 404 status code", () => {
@@ -317,7 +320,7 @@ describe("/", () => {
         .get("/api/articles/5/comments")
         .expect(200)
         .then(({ body }) => {
-          expect(body).to.be.descendingBy("created_at");
+          expect(body.comments).to.be.descendingBy("created_at");
         });
     });
     it("accepts a sort_by column as a query and an order ", () => {
@@ -325,7 +328,7 @@ describe("/", () => {
         .get("/api/articles/1/comments?sort_by=author&order=asc")
         .expect(200)
         .then(({ body }) => {
-          expect(body).to.be.ascendingBy("author");
+          expect(body.comments).to.be.ascendingBy("author");
         });
     });
   });
@@ -339,7 +342,7 @@ describe("/", () => {
         })
         .expect(201)
         .then(({ body }) => {
-          expect(body[0]).to.have.keys(
+          expect(body.comment).to.have.keys(
             "article_id",
             "author",
             "body",
@@ -381,7 +384,7 @@ describe("/", () => {
         .send({ inc_votes: 100 })
         .expect(201)
         .then(({ body }) => {
-          const comment = body.updatedComment[0];
+          const comment = body.comment;
           expect(comment.votes).to.eql(0);
         });
     });
@@ -391,7 +394,7 @@ describe("/", () => {
         .send({ inc_votes: -5 })
         .expect(201)
         .then(({ body }) => {
-          const comment = body.updatedComment[0];
+          const comment = body.comment;
           expect(comment.votes).to.eql(-105);
         });
     });
@@ -445,8 +448,10 @@ describe("/", () => {
         .get("/api/users/icellusedkars")
         .expect(200)
         .then(({ body }) => {
-          expect(body[0]).to.have.keys("username", "avatar_url", "name");
-          expect(body[0].username).to.eql("icellusedkars");
+          const { user } = body;
+
+          expect(user[0]).to.have.keys("username", "avatar_url", "name");
+          expect(user[0].username).to.eql("icellusedkars");
         });
     });
     it("if the user does not exist should return 404 not found", () => {

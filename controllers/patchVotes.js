@@ -12,7 +12,7 @@ const patchVotes = (req, res, next) => {
   }
   incrementVotes(inc_votes, +article_id)
     .then(votes => {
-      if (!votes.updatedArticle[0]) {
+      if (!votes.article) {
         const err = { msg: "no such article", status: 404 };
         return Promise.reject(err);
       }

@@ -2,7 +2,10 @@ const knex = require("../db/connection");
 const fetchUserByUsername = username => {
   return knex("users")
     .where({ username })
-    .returning("*");
+    .returning("*")
+    .then(user => {
+      return { user };
+    });
 };
 
 module.exports = fetchUserByUsername;

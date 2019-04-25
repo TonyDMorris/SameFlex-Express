@@ -4,8 +4,8 @@ const incrementCommentVotes = (inc_votes, comment_id) => {
     .where({ comment_id })
     .increment("votes", inc_votes)
     .returning("*")
-    .then(comment => {
-      return { updatedComment: comment };
+    .then(([comment]) => {
+      return { comment };
     });
 };
 module.exports = incrementCommentVotes;

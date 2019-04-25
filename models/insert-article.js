@@ -4,7 +4,7 @@ const insertArticle = article => {
     .insert(article)
     .returning("*")
     .then(insertedArticle => {
-      return insertedArticle;
+      return { insertedArticle };
     });
 };
 

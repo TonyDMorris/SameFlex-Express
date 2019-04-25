@@ -4,7 +4,7 @@ const getArticleComments = (req, res, next) => {
   const { article_id } = req.params;
   fetchArticleComments(article_id, sort_by, order, limit, page)
     .then(comments => {
-      if (!comments[0]) {
+      if (!comments.comments[0]) {
         const err = {
           status: 404,
           msg: "no comments for this article or no article exists"

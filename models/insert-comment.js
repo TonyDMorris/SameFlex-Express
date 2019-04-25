@@ -9,6 +9,9 @@ const insertComment = (body, username, article_id) => {
 
   return knex("comments")
     .insert(comment)
-    .returning("*");
+    .returning("*")
+    .then(([comment]) => {
+      return { comment };
+    });
 };
 module.exports = insertComment;

@@ -14,7 +14,7 @@ const fetchArticleComments = (
     .limit(limit)
     .offset(page * limit - limit)
     .then(comments => {
-      return comments;
+      return { comments };
     });
 };
 
