@@ -7,4 +7,5 @@ commentsRouter
   .patch(patchCommentVotes)
   .delete(deleteComment)
   .all(methodNotAllowed);
+commentsRouter.all("/", methodNotAllowed);
 module.exports = commentsRouter;
