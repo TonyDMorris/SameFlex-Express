@@ -493,5 +493,53 @@ describe("/", () => {
           expect(error.text).to.eql("user not found");
         });
     });
+    it("POST 201 should return a 201 and the created user ", () => {
+      return request(app)
+        .post("/api/users")
+        .send({
+          avatar_url: "www.google.com",
+          username: "tony",
+          name: "anthony"
+        })
+        .expect(201);
+    });
+    it("POST 201 should return a 201 and the created user ", () => {
+      return request(app)
+        .post("/api/users")
+        .send({
+          avatar_url:
+            "https://upload.wikimedia.org/wikipedia/commons/d/d4/Vel%C3%A1zquez_%E2%80%93_Buf%C3%B3n_don_Sebasti%C3%A1n_de_Morra_%28Museo_del_Prado%2C_c._1645%29.jpg",
+          username: "tony",
+          name: "anthony"
+        })
+        .expect(201)
+        .then(({ body }) => {
+          const { user } = body;
+          expect(user).to.eql({
+            avatar_url:
+              "https://upload.wikimedia.org/wikipedia/commons/d/d4/Vel%C3%A1zquez_%E2%80%93_Buf%C3%B3n_don_Sebasti%C3%A1n_de_Morra_%28Museo_del_Prado%2C_c._1645%29.jpg",
+            username: "tony",
+            name: "anthony"
+          });
+        });
+    });
+    it("POST 201 defaults the avatar url if not provided in post body", () => {
+      return request(app)
+        .post("/api/users")
+        .send({
+          username: "tony",
+          name: "anthony"
+        })
+        .expect(201)
+        .then(({ body }) => {
+          const { user } = body;
+          expect(user).to.eql({
+            avatar_url:
+              "https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png",
+            username: "tony",
+            name: "anthony"
+          });
+        });
+    });
   });
 });

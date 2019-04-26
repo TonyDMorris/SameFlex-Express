@@ -3,9 +3,14 @@ exports.up = function(knex, Promise) {
     usersTable
       .string("username")
       .unique()
-      .primary();
-    usersTable.string("avatar_url");
-    usersTable.string("name");
+      .primary()
+      .notNull();
+    usersTable
+      .string("avatar_url")
+      .defaultsTo(
+        "https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png"
+      );
+    usersTable.string("name").notNull();
   });
 };
 
