@@ -31,14 +31,39 @@ describe("/", () => {
             expect(topics[0]).to.have.keys("slug", "description");
           });
       });
-      it("POST should return a 405 method not allowed error", () => {
+      it("POST should return a 201 and return the created topic on a topic key", () => {
         return request(app)
           .post("/api/topics")
-          .expect(405)
-          .then(err => {
-            const { msg } = err.body;
-            expect(msg).to.eql("Method Not Allowed");
+          .send({
+            slug: "dwarf fortress",
+            description: "all things dwarf fortress"
+          })
+          .expect(201);
+      });
+      it("POST returned topic should have correct keys", () => {
+        return request(app)
+          .post("/api/topics")
+          .send({
+            slug: "dwarf fortress",
+            description: "all things dwarf fortress"
+          })
+          .expect(201)
+          .then(({ body }) => {
+            const { topic } = body;
+            expect(topic).to.eql({
+              slug: "dwarf fortress",
+              description: "all things dwarf fortress"
+            });
           });
+      });
+      it("POST with a malformed body should return a 400", () => {
+        return request(app)
+          .post("/api/topics")
+          .send({
+            sug: "dwarf fortress",
+            description: "all things dwarf fortress"
+          })
+          .expect(400);
       });
       it("PUT should return a 405 method not allowed error", () => {
         return request(app)
