@@ -29,9 +29,7 @@ exports.badRequest = (err, req, res, next) => {
   };
   if (psqlCodes[err.code]) {
     console.log(err);
-    res
-      .status(psqlCodes[err.code].code)
-      .send(err.detail || err.error || psqlCodes[err.code].text);
+    res.status(psqlCodes[err.code].code).send(psqlCodes[err.code].text);
   } else {
     next(err);
   }

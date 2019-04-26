@@ -287,6 +287,16 @@ describe("/", () => {
         .send({ inc_votes: -5 })
         .expect(404);
     });
+    it("DELETE 204 will delete an article and return 204", () => {
+      return request(app)
+        .delete("/api/articles/1")
+        .expect(204);
+    });
+    it("DELETE 404 returns an error if the article is not found", () => {
+      return request(app)
+        .delete("/api/articles/100000")
+        .expect(404);
+    });
   });
   describe("/api/article_id/comments", () => {
     it("GET 200 returns an array of comments for the relevant article", () => {

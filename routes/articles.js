@@ -4,6 +4,7 @@ const patchVotes = require("../controllers/patchVotes");
 const getArticleComments = require("../controllers/get-article-comments");
 const postComment = require("../controllers/post-comment");
 const postArticle = require("../controllers/post-article");
+const deleteArticle = require("../controllers/delete-article");
 const { methodNotAllowed } = require("../errors/index");
 
 articlesRouter
@@ -15,6 +16,7 @@ articlesRouter
   .route("/:article_id")
   .get(getArticles)
   .patch(patchVotes)
+  .delete(deleteArticle)
   .all(methodNotAllowed);
 
 articlesRouter
