@@ -188,7 +188,15 @@ describe("/", () => {
         })
         .expect(201)
         .then(({ body }) => {
-          expect(body.insertedArticle).to.be.an("array");
+          expect(body.article).to.be.have.keys(
+            "article_id",
+            "title",
+            "body",
+            "votes",
+            "topic",
+            "author",
+            "created_at"
+          );
         });
     });
   });
@@ -310,9 +318,7 @@ describe("/", () => {
         .get("/api/articles/500/comments")
         .expect(404)
         .then(error => {
-          expect(error.text).to.eql(
-            "no comments for this article or no article exists"
-          );
+          expect(error.text).to.eql("article not found");
         });
     });
     it("sorts by default to created at in desc order", () => {
@@ -450,8 +456,8 @@ describe("/", () => {
         .then(({ body }) => {
           const { user } = body;
 
-          expect(user[0]).to.have.keys("username", "avatar_url", "name");
-          expect(user[0].username).to.eql("icellusedkars");
+          expect(user).to.have.keys("username", "avatar_url", "name");
+          expect(user.username).to.eql("icellusedkars");
         });
     });
     it("if the user does not exist should return 404 not found", () => {

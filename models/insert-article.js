@@ -3,8 +3,8 @@ const insertArticle = article => {
   return knex("articles")
     .insert(article)
     .returning("*")
-    .then(insertedArticle => {
-      return { insertedArticle };
+    .then(([article]) => {
+      return { article };
     });
 };
 

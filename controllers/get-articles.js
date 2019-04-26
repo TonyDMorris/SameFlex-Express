@@ -5,6 +5,10 @@ const getArticles = (req, res, next) => {
 
   fetchArticles(sort_by, order, author, topic, article_id, limit, page)
     .then(articles => {
+      if (!articles.article && !articles.articles[0]) {
+        const err = { msg: "article not found", status: 404 };
+        return Promise.reject(err);
+      }
       res.status(200).send(articles);
     })
     .catch(next);

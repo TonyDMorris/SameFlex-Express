@@ -3,7 +3,7 @@ const fetchUserByUsername = username => {
   return knex("users")
     .where({ username })
     .returning("*")
-    .then(user => {
+    .then(([user]) => {
       return { user };
     });
 };

@@ -1,17 +1,20 @@
 const insertComment = require("../models/insert-comment");
+const fetchArticles = require("../models/fetch-articles");
 const postComment = (req, res, next) => {
   const { body, username } = req.body;
   const { article_id } = req.params;
-  if (!body || !username || /\D/g.test(article_id)) {
-    const err = {
-      msg: "malformed body or missing paramater please correct before resubmit",
-      status: 400
-    };
-    return next(err);
-  }
-  insertComment(body, username, article_id)
-    .then(comment => {
-      res.status(201).send(comment);
+  const nowt = undefined;
+  return Promise.all([
+    fetchArticles(nowt, nowt, nowt, nowt, article_id, nowt, nowt),
+    insertComment(body, username, article_id)
+  ])
+    .then(([article, comment]) => {
+      if (!article.article) {
+        const err = { msg: "no such article", status: "404" };
+        return Promise.reject(err);
+      } else {
+        res.status(201).send(comment);
+      }
     })
     .catch(next);
 };
