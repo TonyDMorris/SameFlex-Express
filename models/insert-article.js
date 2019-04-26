@@ -1,7 +1,13 @@
 const knex = require("../db/connection");
 const insertArticle = article => {
+  const updatedArticle = {
+    body: article.body,
+    author: article.username,
+    topic: article.topic,
+    title: article.title
+  };
   return knex("articles")
-    .insert(article)
+    .insert(updatedArticle)
     .returning("*")
     .then(([article]) => {
       return { article };

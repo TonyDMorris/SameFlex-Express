@@ -184,7 +184,7 @@ describe("/", () => {
           title: "title",
           body: "body",
           topic: "cats",
-          author: "butter_bridge"
+          username: "butter_bridge"
         })
         .expect(201)
         .then(({ body }) => {
