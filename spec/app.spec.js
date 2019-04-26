@@ -493,6 +493,8 @@ describe("/", () => {
           expect(error.text).to.eql("user not found");
         });
     });
+  });
+  describe("/api/users", () => {
     it("POST 201 should return a 201 and the created user ", () => {
       return request(app)
         .post("/api/users")
@@ -539,6 +541,26 @@ describe("/", () => {
             username: "tony",
             name: "anthony"
           });
+        });
+    });
+    it("GET 200 should return an array of users", () => {
+      return request(app)
+        .get("/api/users")
+        .expect(200)
+        .then(({ body }) => {
+          const { users } = body;
+          expect(users).to.be.an("array");
+          expect(users[0]).to.have.keys("username", "avatar_url", "name");
+        });
+    });
+    it.only("accepts a limit query ", () => {
+      return request(app)
+        .get("/api/users?limit=2")
+        .expect(200)
+        .then(({ body }) => {
+          const { users } = body;
+          expect(users).to.be.an("array");
+          expect(users.length).to.eql(2);
         });
     });
   });
