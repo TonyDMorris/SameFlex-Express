@@ -1,14 +1,14 @@
 exports.routeNotFound = (req, res) => {
-  res.status(404).send({ msg: "Route Not Found" });
+  res.status(404).send({ error: "Route Not Found" });
 };
 
 exports.methodNotAllowed = (req, res) => {
-  res.status(405).send({ msg: "Method Not Allowed" });
+  res.status(405).send({ error: "Method Not Allowed" });
 };
 
 exports.handle500 = (err, req, res, next) => {
   console.log(err);
-  res.status(500).send({ msg: "Internal Server Error" });
+  res.status(500).send({ error: "Internal Server Error" });
 };
 
 exports.badRequest = (err, req, res, next) => {
@@ -29,7 +29,9 @@ exports.badRequest = (err, req, res, next) => {
   };
   if (psqlCodes[err.code]) {
     console.log(err);
-    res.status(psqlCodes[err.code].code).send(psqlCodes[err.code].text);
+    res
+      .status(psqlCodes[err.code].code)
+      .send({ error: psqlCodes[err.code].text });
   } else {
     next(err);
   }
@@ -37,7 +39,7 @@ exports.badRequest = (err, req, res, next) => {
 
 exports.customError = (err, req, res, next) => {
   if (err.status) {
-    res.status(err.status).send(err.msg);
+    res.status(err.status).send({ error: err.msg });
   } else {
     next(err);
   }

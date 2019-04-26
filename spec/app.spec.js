@@ -69,27 +69,27 @@ describe("/", () => {
         return request(app)
           .put("/api/topics")
           .expect(405)
-          .then(err => {
-            const { msg } = err.body;
-            expect(msg).to.eql("Method Not Allowed");
+          .then(({ body }) => {
+            const { error } = body;
+            expect(error).to.eql("Method Not Allowed");
           });
       });
       it("PATCH should all return a 405 method not allowed error", () => {
         return request(app)
           .patch("/api/topics")
           .expect(405)
-          .then(err => {
-            const { msg } = err.body;
-            expect(msg).to.eql("Method Not Allowed");
+          .then(({ body }) => {
+            const { error } = body;
+            expect(error).to.eql("Method Not Allowed");
           });
       });
       it("DELETE should return a 405 method not allowed error", () => {
         return request(app)
           .delete("/api/topics")
           .expect(405)
-          .then(err => {
-            const { msg } = err.body;
-            expect(msg).to.eql("Method Not Allowed");
+          .then(({ body }) => {
+            const { error } = body;
+            expect(error).to.eql("Method Not Allowed");
           });
       });
     });
@@ -300,8 +300,9 @@ describe("/", () => {
         .patch("/api/articles/d")
         .send({ inc_votes: 5 })
         .expect(400)
-        .then(({ error }) => {
-          expect(error.text).to.eql(
+        .then(({ body }) => {
+          const { error } = body;
+          expect(error).to.eql(
             "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
           );
         });
@@ -347,8 +348,9 @@ describe("/", () => {
       return request(app)
         .get("/api/articles/500/comments")
         .expect(404)
-        .then(error => {
-          expect(error.text).to.eql("article not found");
+        .then(({ body }) => {
+          const { error } = body;
+          expect(error).to.eql("article not found");
         });
     });
     it("sorts by default to created at in desc order", () => {
@@ -451,8 +453,9 @@ describe("/", () => {
         .patch("/api/comments/d")
         .send({ inc_votes: 5 })
         .expect(400)
-        .then(({ error }) => {
-          expect(error.text).to.eql(
+        .then(({ body }) => {
+          const { error } = body;
+          expect(error).to.eql(
             "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
           );
         });
@@ -489,8 +492,9 @@ describe("/", () => {
       return request(app)
         .get("/api/users/icelluedkars")
         .expect(404)
-        .then(({ error }) => {
-          expect(error.text).to.eql("user not found");
+        .then(({ body }) => {
+          const { error } = body;
+          expect(error).to.eql("user not found");
         });
     });
   });
@@ -553,7 +557,7 @@ describe("/", () => {
           expect(users[0]).to.have.keys("username", "avatar_url", "name");
         });
     });
-    it.only("accepts a limit query ", () => {
+    it("accepts a limit query ", () => {
       return request(app)
         .get("/api/users?limit=2")
         .expect(200)
