@@ -5,7 +5,7 @@ const {
   handle500,
   customError,
   badRequest
-} = require("./errors");
+} = require("./errors/index");
 
 const app = express();
 

@@ -12,6 +12,6 @@ apiRouter
   .use("/articles", articlesRouter)
   .use("/comments", commentsRouter)
   .use("/users", usersRouter)
-  .all(methodNotAllowed);
+  .all("/", methodNotAllowed);
 
 module.exports = apiRouter;

@@ -227,7 +227,7 @@ describe("/", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({ inc_votes: 2 })
-        .expect(201)
+        .expect(200)
         .then(({ body }) => {
           const article = body.article;
           expect(article.votes).to.eql(2);
@@ -237,7 +237,7 @@ describe("/", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({ inc_votes: 5 })
-        .expect(201)
+        .expect(200)
         .then(({ body }) => {
           const article = body.article;
           expect(article.votes).to.eql(5);
@@ -248,7 +248,7 @@ describe("/", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({ inc_votes: 5 })
-        .expect(201)
+        .expect(200)
         .then(({ body }) => {
           const article = body.article;
           expect(article.votes).to.eql(5);
@@ -258,7 +258,7 @@ describe("/", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({ inc_votes: -5 })
-        .expect(201)
+        .expect(200)
         .then(({ body }) => {
           const article = body.article;
           expect(article.votes).to.eql(-5);
@@ -268,12 +268,7 @@ describe("/", () => {
       return request(app)
         .patch("/api/articles/4")
         .send({})
-        .expect(400)
-        .then(({ error }) => {
-          expect(error.text).to.eql(
-            "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
-          );
-        });
+        .expect(200);
     });
     it("will check for malformed a param", () => {
       return request(app)
@@ -378,17 +373,17 @@ describe("/", () => {
     });
   });
   describe("/api/comments/:comment_id", () => {
-    it("PATCH 201 should return a status of 201 when a succesfull request occurs", () => {
+    it("PATCH 200 should return a status of 200 when a succesfull request occurs", () => {
       return request(app)
         .patch("/api/comments/1")
         .send({ inc_votes: 1 })
-        .expect(201);
+        .expect(200);
     });
     it("PATCH when passed an object containing inc_votes it increments the given article id by the given number of votes", () => {
       return request(app)
         .patch("/api/comments/4")
         .send({ inc_votes: 100 })
-        .expect(201)
+        .expect(200)
         .then(({ body }) => {
           const comment = body.comment;
           expect(comment.votes).to.eql(0);
@@ -398,22 +393,17 @@ describe("/", () => {
       return request(app)
         .patch("/api/comments/4")
         .send({ inc_votes: -5 })
-        .expect(201)
+        .expect(200)
         .then(({ body }) => {
           const comment = body.comment;
           expect(comment.votes).to.eql(-105);
         });
     });
-    it("will check for invalid vote increments ", () => {
+    it("returns the comment if no value given with a status of 200 ", () => {
       return request(app)
         .patch("/api/comments/4")
         .send({})
-        .expect(400)
-        .then(({ error }) => {
-          expect(error.text).to.eql(
-            "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
-          );
-        });
+        .expect(200);
     });
     it("will check for invalid id", () => {
       return request(app)
@@ -440,7 +430,7 @@ describe("/", () => {
     it("DELETE 400 will respond with an error if a comment does not exist to be deleted", () => {
       return request(app)
         .delete("/api/comments/1000")
-        .expect(400);
+        .expect(404);
     });
   });
   describe("/api/users/:username", () => {

@@ -4,7 +4,7 @@ const deleteComment = (req, res, next) => {
   removeComment(comment_id)
     .then(check => {
       if (check !== 1) {
-        const err = { msg: "no comment by that id", status: 400 };
+        const err = { msg: "no comment by that id", status: 404 };
         return Promise.reject(err);
       }
       res.status(204).send();
