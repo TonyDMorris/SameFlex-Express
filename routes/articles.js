@@ -10,14 +10,14 @@ const { methodNotAllowed } = require("../errors/index");
 
 articlesRouter
   .route("/")
-  .get(authToken, getArticles)
-  .post(postArticle)
+  .get(getArticles)
+  .post(authToken, postArticle)
   .all(methodNotAllowed);
 articlesRouter
   .route("/:article_id")
   .get(getArticles)
-  .patch(patchVotes)
-  .delete(deleteArticle)
+  .patch(authToken, patchVotes)
+  .delete(authToken, deleteArticle)
   .all(methodNotAllowed);
 
 articlesRouter

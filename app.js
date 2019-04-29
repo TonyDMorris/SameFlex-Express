@@ -1,7 +1,7 @@
 const express = require("express");
 const apiRouter = require("./routes/api");
 const login = require("./controllers/login");
-
+const signUp = require("./controllers/signup");
 const {
   routeNotFound,
   handle500,
@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use("/api", apiRouter);
 app.post("/login", login);
+app.post("/signup", signUp);
 
 app.all("/*", routeNotFound);
 
