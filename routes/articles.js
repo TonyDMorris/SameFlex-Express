@@ -5,11 +5,12 @@ const getArticleComments = require("../controllers/get-article-comments");
 const postComment = require("../controllers/post-comment");
 const postArticle = require("../controllers/post-article");
 const deleteArticle = require("../controllers/delete-article");
+const authToken = require("../controllers/auth-token");
 const { methodNotAllowed } = require("../errors/index");
 
 articlesRouter
   .route("/")
-  .get(getArticles)
+  .get(authToken, getArticles)
   .post(postArticle)
   .all(methodNotAllowed);
 articlesRouter

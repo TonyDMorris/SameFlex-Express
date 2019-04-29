@@ -197,7 +197,7 @@ describe("formatDate()", () => {
     const formattedArray = formatDate(objArray);
     expect(formattedArray[0]).to.have.key("created_at");
   });
-  describe.only("passHash", () => {
+  describe("passHash", () => {
     it("should hash a password", () => {
       return passHash("password").then(hash => {
         expect(bcrypt.compareSync("password", hash)).to.be.true;

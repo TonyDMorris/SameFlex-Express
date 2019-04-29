@@ -10,7 +10,7 @@ const passHash = password => {
       return hash;
     })
     .catch(err => {
-      console.log(err);
+      throw err;
     });
 };
 
