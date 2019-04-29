@@ -1,5 +1,6 @@
 const express = require("express");
 const apiRouter = require("./routes/api");
+const login = require("./controllers/login");
 
 const {
   routeNotFound,
@@ -13,7 +14,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api", apiRouter);
-app.post("/login", (req, res, next) => {});
+app.post("/login", login);
 
 app.all("/*", routeNotFound);
 

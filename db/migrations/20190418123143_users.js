@@ -11,6 +11,11 @@ exports.up = function(knex, Promise) {
         "https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png"
       );
     usersTable.string("name").notNull();
+    usersTable
+      .string("password")
+      .defaultsTo(
+        "$2b$05$1KwtPpbTUvfgSMuUDlqhsOnmXJseqYzRkhKHKB8EePgtaFxHRBjam"
+      );
   });
 };
 

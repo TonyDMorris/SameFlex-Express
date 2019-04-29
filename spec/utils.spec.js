@@ -5,6 +5,8 @@ const {
   formatAlbums,
   formatDate
 } = require("../utils/utils");
+const passHash = require("../utils/bcrypt");
+const bcrypt = require("bcrypt");
 
 describe("createRef", () => {
   it("returns an empty object, when passed an empty array", () => {
@@ -194,5 +196,12 @@ describe("formatDate()", () => {
     const objArray = [{}];
     const formattedArray = formatDate(objArray);
     expect(formattedArray[0]).to.have.key("created_at");
+  });
+  describe.only("passHash", () => {
+    it("should hash a password", () => {
+      return passHash("password").then(hash => {
+        expect(bcrypt.compareSync("password", hash)).to.be.true;
+      });
+    });
   });
 });
