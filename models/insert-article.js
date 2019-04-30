@@ -1,5 +1,6 @@
 const knex = require("../db/connection");
 const insertArticle = article => {
+  console.log(article);
   const updatedArticle = {
     body: article.body,
     author: article.username,

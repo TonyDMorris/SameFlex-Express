@@ -12,6 +12,7 @@ exports.handle500 = (err, req, res, next) => {
 };
 
 exports.badRequest = (err, req, res, next) => {
+  console.log(err);
   const psqlCodes = {
     "42703": { code: 400, text: "bad query or malformed body of post request" },
     "22P02": {
@@ -24,7 +25,7 @@ exports.badRequest = (err, req, res, next) => {
     },
     "23503": {
       code: 404,
-      text: "malformed post body please recheck and try again"
+      text: "username does not exist"
     }
   };
   if (psqlCodes[err.code]) {
