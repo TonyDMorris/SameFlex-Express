@@ -1,6 +1,6 @@
 const knex = require("../db/connection");
 const fetchArticles = (
-  sort_by = "author",
+  sort_by = "created_at",
   order = "desc",
   author,
   topic,
