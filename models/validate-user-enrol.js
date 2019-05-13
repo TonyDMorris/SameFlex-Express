@@ -3,7 +3,7 @@ const passHash = require("../utils/bcrypt");
 const insertUser = require("./insert-user");
 const knex = require("../db/connection");
 const validateUserEnrol = body => {
-  const [user] = body;
+  const user = body;
 
   return Promise.all([
     knex("users")
