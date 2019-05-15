@@ -5,7 +5,7 @@ const fetchArticles = (
   author,
   topic,
   id,
-  limit = 5,
+  limit = 10,
   page = 1
 ) => {
   return knex
