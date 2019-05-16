@@ -3,7 +3,7 @@ const fetchArticleComments = (
   article_id,
   sort_by = "created_at",
   order = "desc",
-  limit = 10,
+  limit = 100,
   page = 1
 ) => {
   return knex
