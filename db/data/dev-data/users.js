@@ -3,7 +3,7 @@ module.exports = [
     username: "tickle122",
     name: "Tom Tickle",
     avatar_url:
-      "https://www.spiritsurfers.net/monastery/wp-content/uploads/_41500270_mrtickle.jpg"
+      "https://pbs.twimg.com/profile_images/742877069793742848/c0Ec2mTU.jpg"
   },
   {
     username: "grumpy19",
