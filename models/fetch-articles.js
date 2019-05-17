@@ -18,6 +18,7 @@ const fetchArticles = (
       "articles.author",
       "articles.created_at"
     )
+    .sum("articles.article_id as article_count")
     .count("comments.article_id as comment_count")
     .from("articles")
     .groupBy("articles.article_id")
