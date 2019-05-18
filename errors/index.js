@@ -39,7 +39,7 @@ exports.badRequest = (err, req, res, next) => {
 
 exports.customError = (err, req, res, next) => {
   if (err.status) {
-    res.status(err.status).send({ error: err.msg });
+    res.status(err.status).send({ error: err.msg, status: err.status });
   } else {
     next(err);
   }
